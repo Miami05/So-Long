@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils.c                                       :+:      :+:    :+:   */
+/*   main_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ledio <ledio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 18:23:57 by ledio             #+#    #+#             */
-/*   Updated: 2024/12/24 17:50:42 by ledio            ###   ########.fr       */
+/*   Created: 2025/01/15 17:31:40 by ldurmish          #+#    #+#             */
+/*   Updated: 2025/01/16 13:52:42 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 bool	has_valid_characters(t_game *game)
 {
@@ -26,7 +26,7 @@ bool	has_valid_characters(t_game *game)
 			if (game->map.map[i][j] != '1' && game->map.map[i][j] != '0'
 				&& game->map.map[i][j] != 'C' && game->map.map[i][j] != 'P'
 				&& game->map.map[i][j] != 'E' && game->map.map[i][j] != 'B'
-				&& game->map.map[i][j] != '3')
+				&& game->map.map[i][j] != '3' && game->map.map[i][j] != 'X')
 				return (false);
 			j++;
 		}
@@ -63,6 +63,8 @@ bool	is_rectangular(t_game *game)
 	int		len;
 	int		i;
 
+	if (!game || !game->map.map || !game->map.map[0])
+		return (false);
 	len = ft_strlen(game->map.map[0]);
 	i = 1;
 	while (i < game->map.row)
@@ -84,6 +86,8 @@ bool	validate_map(t_game *game)
 		error("Error: Invalid characters found in the map\n");
 	if (!has_required_elements(game))
 		error("Error: Invalid number of players, exit or collectibles\n");
+	if (!valid_map_character(game))
+		error("Error: There are invalid characters\n");
 	if (!is_path_valid(game))
 		error("Error: There is no valid path in the map\n");
 	return (true);
@@ -94,16 +98,7 @@ void	init_vars(t_game *game)
 	int			i;
 	int			j;
 
-	ft_memset(game, 0, sizeof(t_game));
-	game->player.direction = 0;
-	game->width = TILE_SIZE;
-	game->height = TILE_SIZE;
-	game->player.is_moving = false;
-	game->player.current_frame = 1;
-	game->player.explosion_power = 1;
-	game->player.bomb_power = 1;
-	game->coins.anim_speed = 300;
-	game->player.coins_needed = 3;
+	init_bomb(game);
 	i = -1;
 	while (++i < game->map.row)
 	{

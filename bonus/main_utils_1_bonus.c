@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils_3.c                                     :+:      :+:    :+:   */
+/*   main_utils_1_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ledio <ledio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 00:51:08 by ledio             #+#    #+#             */
-/*   Updated: 2024/12/24 18:09:15 by ledio            ###   ########.fr       */
+/*   Created: 2025/01/15 17:56:32 by ldurmish          #+#    #+#             */
+/*   Updated: 2025/01/18 19:50:19 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	render_map_utils(t_game *game)
 {
@@ -21,9 +21,10 @@ static void	render_map_utils(t_game *game)
 	j = 0;
 	i = game->player.prev_y / TILE_SIZE;
 	j = game->player.prev_x / TILE_SIZE;
-	mlx_put_image_to_window(game->mlx, game->win, game->texture.bg,
-		game->player.prev_x, game->player.prev_y);
-	if (game->map.map[i][j] == '1')
+	if (game->map.map[i][j] != '1')
+		mlx_put_image_to_window(game->mlx, game->win, game->texture.bg,
+			game->player.prev_x, game->player.prev_y);
+	else
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->texture.wall, game->player.prev_x, game->player.prev_y);
 }
@@ -38,7 +39,42 @@ static void	render_map_texture(t_game *game, int j)
 	else if (game->map.map[game->i][j] == 'B'
 		|| game->map.map[game->i][j] == '3')
 		mlx_put_image_to_window(game->mlx, game->win,
-			game->box.sprites, j * TILE_SIZE, game-> i * TILE_SIZE);
+			game->box.sprites, j * TILE_SIZE, game->i * TILE_SIZE);
+	else if (game->map.map[game->i][j] == 'E')
+	{
+		if (game->player.collected_coins >= game->player.coins_needed)
+			mlx_put_image_to_window(game->mlx, game->win,
+				game->texture.exit_door, j * TILE_SIZE, game->i * TILE_SIZE);
+		mlx_put_image_to_window(game->mlx, game->win,
+			game->texture.door, j * TILE_SIZE, game->i * TILE_SIZE);
+	}
+}
+
+void	render_bomb(t_game *game)
+{
+	int		bomb_grid_x;
+	int		bomb_grid_y;
+
+	if (game->player.prev_x != game->player.x
+		|| game->player.prev_y != game->player.y)
+	{
+		render_map_utils(game);
+	}
+	if (game->bomb.active)
+	{
+		bomb_grid_x = game->bomb.x / TILE_SIZE;
+		bomb_grid_y = game->bomb.y / TILE_SIZE;
+		if (game->map.map[bomb_grid_y][bomb_grid_x] == BOMB_ACTIVE)
+		{
+			if (!game->bomb.is_exploding)
+			{
+				mlx_put_image_to_window(game->mlx, game->win,
+					game->texture.bg, game->bomb.x, game->bomb.y);
+				mlx_put_image_to_window(game->mlx, game->win,
+					game->bomb.sprites, game->bomb.x, game->bomb.y);
+			}
+		}
+	}
 }
 
 int	render_map(t_game *game)
@@ -57,23 +93,13 @@ int	render_map(t_game *game)
 		}
 		first_render = false;
 	}
-	else if (game->player.prev_x != game->player.x
-		|| game->player.prev_y != game->player.y)
-		render_map_utils(game);
-	update_bomb_state(game);
-	if (game->bomb.active && game->bomb.is_exploding)
-		render_explosion(game);
+	else
+		render_bomb(game);
+	if (game->enemy.alive)
+		update_enemy(game);
 	animate_coin(game);
 	animate_player(game);
 	return (0);
-}
-
-void	setup_game_tools(t_game *game)
-{
-	mlx_loop_hook(game->mlx, render_map, game);
-	mlx_hook(game->win, 2, 1L << 0, key_press, game);
-	mlx_hook(game->win, 3, 1L << 1, key_release, game);
-	mlx_hook(game->win, 17, 0, (void *)exit_game, game);
 }
 
 bool	has_required_elements(t_game *game)

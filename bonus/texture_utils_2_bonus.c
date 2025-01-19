@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_utils_2.c                                  :+:      :+:    :+:   */
+/*   texture_utils_2_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ledio <ledio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 13:58:04 by ledio             #+#    #+#             */
-/*   Updated: 2024/12/24 02:37:14 by ledio            ###   ########.fr       */
+/*   Created: 2025/01/17 20:53:27 by ldurmish          #+#    #+#             */
+/*   Updated: 2025/01/18 13:57:03 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
+
+void	init_bomb(t_game *game)
+{
+	game->player.bomb_power = 2;
+	game->bomb.explosion_duration = 20;
+	game->bomb.explosion_radius = game->player.bomb_power;
+	game->bomb.is_exploding = false;
+}
 
 void	load_collectible(t_game *game)
 {

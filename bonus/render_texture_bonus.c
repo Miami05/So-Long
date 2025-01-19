@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_textures.c                                  :+:      :+:    :+:   */
+/*   render_texture_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ledio <ledio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 23:46:46 by ledio             #+#    #+#             */
-/*   Updated: 2024/12/24 17:45:02 by ledio            ###   ########.fr       */
+/*   Created: 2025/01/15 17:59:39 by ldurmish          #+#    #+#             */
+/*   Updated: 2025/01/18 13:56:23 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
+
+void	setup_game_tools(t_game *game)
+{
+	init_enemy(game);
+	mlx_loop_hook(game->mlx, game_loop, game);
+	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
+	mlx_hook(game->win, 17, 0, (void *)exit_game, game);
+}
 
 void	animate_coin(t_game *game)
 {

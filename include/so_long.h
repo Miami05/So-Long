@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ledio <ledio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:20:01 by ledio             #+#    #+#             */
-/*   Updated: 2024/12/24 20:40:59 by ledio            ###   ########.fr       */
+/*   Updated: 2025/01/18 23:31:15 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,23 @@
 # define KEY_D 100
 # define KEY_SPACE 32
 # define BOMB_ACTIVE '4'
+
+typedef struct s_effects
+{
+	char	*moves_str;
+	char	*coins_str;
+	char	*power_str;
+	int		shadow_effect;
+	int		text_offset;
+	int		right_edge;
+}	t_effect;
+
+
+typedef struct s_valid
+{
+	int		coins;
+	int		exit;
+}	t_valid;
 
 typedef struct s_coins
 {
@@ -57,18 +74,6 @@ typedef struct s_moves
 	int		current_y;
 }	t_moves;
 
-typedef struct s_enemy
-{
-	int		x;
-	int		y;
-	int		width;
-	int		height;
-	void	*sprites[4][3];
-	int		direction;
-	int		current_frame;
-	int		alive;
-}	t_enemy;
-
 typedef struct s_map
 {
 	int		row;
@@ -83,7 +88,8 @@ typedef struct s_texture
 {
 	void	*wall;
 	void	*bg;
-	void	*exit_sprites[2];
+	void	*exit_door;
+	void	*door;
 	int		exit_state;
 }	t_texture;
 
@@ -110,7 +116,7 @@ typedef struct s_player
 	int			y;
 	int			moves;
 	int			direction;
-	void		*sprites[4][3];
+	void		***sprites;
 	int			current_frame;
 	int			width;
 	int			height;
@@ -122,24 +128,43 @@ typedef struct s_player
 	int			collected_coins;
 	int			explosion_power;
 	int			bomb_power;
+	int			initial_x;
+	int			initial_y;
 	int			coins_needed;
 }	t_player;
 
+typedef struct s_enemy
+{
+	int		x;
+	int		y;
+	int		width;
+	int		height;
+	void	***sprites;
+	int		direction;
+	int		current_frame;
+	int		alive;
+}	t_enemy;
+
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
-	t_map		map;
-	t_texture	texture;
-	t_player	player;
-	t_bomb		bomb;
-	t_moves		moves;
-	t_enemy		enemy;
-	t_box		box;
-	t_coins		coins;
-	int			width;
-	int			height;
-	int			i;
+	void			*mlx;
+	void			*win;
+	t_map			map;
+	t_texture		texture;
+	t_player		player;
+	t_bomb			bomb;
+	t_moves			moves;
+	t_enemy			enemy;
+	t_box			box;
+	t_coins			coins;
+	t_valid			valid;
+	t_effect		effects;
+	int				width;
+	int				height;
+	int				i;
+	int				base_y;
+	int				dx;
+	int				dy;
 }	t_game;
 
 void		load_map(char *filename, t_game *game);
@@ -164,5 +189,20 @@ void		place_bomb(t_game *game);
 void		animate_coin(t_game *game);
 void		render_explosion(t_game *game);
 void		update_bomb_state(t_game *game);
+void		init_bomb(t_game *game);
+void		reset_player(t_game *game);
+int			game_loop(t_game *game);
+void		render_bomb(t_game *game);
+void		cleanup_player_sprites(t_game *game);
+void		clear_explosion_area(t_game *game);
+void		free_bomb(t_game *game);
+void		free_box(t_game *game);
+void		free_textures(t_game *game);
+void		free_collectible_coins(t_game *game);
+void		free_bomb(t_game *game);
+void		free_map(t_game *game);
+bool		is_map_valid_size(t_game *game);
+bool		valid_map_character(t_game *game);
+void        load_player_utils(t_game *game, const char *sprites_path[4][3]);
 
 #endif

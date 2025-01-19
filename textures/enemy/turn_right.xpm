@@ -1,7 +1,7 @@
 /* XPM */
 static char * turn_right_xpm[] = {
 "32 32 286 2",
-"  	c None",
+"  	c #C8A2C8",
 ". 	c #5F2221",
 "+ 	c #592120",
 "@ 	c #662523",

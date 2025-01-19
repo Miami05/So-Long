@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_utils.c                                    :+:      :+:    :+:   */
+/*   texture_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ledio <ledio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 14:46:47 by ledio             #+#    #+#             */
-/*   Updated: 2024/12/24 20:41:08 by ledio            ###   ########.fr       */
+/*   Created: 2025/01/15 17:33:35 by ldurmish          #+#    #+#             */
+/*   Updated: 2025/01/18 14:56:49 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	load_bomb(t_game *game)
 {
@@ -25,6 +25,8 @@ void	load_bomb(t_game *game)
 	i = -1;
 	game->bomb.sprites = mlx_xpm_file_to_image(game->mlx,
 			"textures/bombs/bomb.xpm", &game->bomb.width, &game->bomb.height);
+	if (!game->bomb.sprites)
+		error("Error: Failed to load the bomb sprite");
 	while (++i < 4)
 	{
 		game->bomb.explosion_sprites[i] = mlx_xpm_file_to_image(game->mlx,
@@ -32,26 +34,6 @@ void	load_bomb(t_game *game)
 				&game->bomb.height);
 		if (!game->bomb.explosion_sprites[i])
 			error("Error: Failed to load the explosion sprites");
-	}
-}
-
-void	load_player_utils(t_game *game, const char *sprites_path[4][3])
-{
-	int			i;
-	int			j;
-
-	i = -1;
-	while (++i < 4)
-	{
-		j = -1;
-		while (++j < 3)
-		{
-			game->player.sprites[i][j] = mlx_xpm_file_to_image(game->mlx,
-					(char *)sprites_path[i][j], &game->player.width,
-					&game->player.height);
-			if (!game->player.sprites[i][j])
-				error("Error: Failed to load player sprites");
-		}
 	}
 }
 
@@ -85,20 +67,12 @@ void	load_player(t_game *game)
 
 void	load_exit_door(t_game *game)
 {
-	const char	*door_frames[2] = {
-		"textures/exit/door.xpm",
-		"textures/exit/exit.xpm"	
-	};
-	int			i;
-
-	i = -1;
-	while (++i < 2)
-	{
-		game->texture.exit_sprites[i] = mlx_xpm_file_to_image(game->mlx,
-				(char *)door_frames[i], &game->width, &game->height);
-		if (!game->texture.exit_sprites[i])
-			error("Error: Failed load the door image");
-	}
+	game->texture.door = mlx_xpm_file_to_image(game->mlx,
+			"textures/exit/door.xpm", &game->width, &game->height);
+	game->texture.exit_door = mlx_xpm_file_to_image(game->mlx,
+			"textures/exit/exit.xpm", &game->width, &game->height);
+	if (!game->texture.door || !game->texture.exit_door)
+		error("Error: Failed to load the door texture\n");
 }
 
 void	load_texture(t_game *game)
@@ -111,6 +85,7 @@ void	load_texture(t_game *game)
 		error("Error: Failed to load the pictures");
 	load_exit_door(game);
 	load_player(game);
+	load_enemy(game);
 	load_bomb(game);
 	load_sprites(game);
 }

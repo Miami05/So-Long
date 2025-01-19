@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ledio <ledio@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 23:46:20 by ledio             #+#    #+#             */
-/*   Updated: 2024/12/20 19:05:53 by ledio            ###   ########.fr       */
+/*   Updated: 2025/01/18 13:45:59 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ static void	flood_fill(char **map_copy, int row, int col, t_game *game)
 		|| map_copy[row][col] == '1' || map_copy[row][col] == 'F')
 		return ;
 	map_copy[row][col] = 'F';
+	if (game->map.map[row][col] == 'C'
+		|| game->map.map[row][col] == '3')
+		game->valid.coins++;
+	if (game->map.map[row][col] == 'E')
+	{
+		game->valid.exit = 1;
+		return ;
+	}
 	flood_fill(map_copy, row + 1, col, game);
 	flood_fill(map_copy, row - 1, col, game);
 	flood_fill(map_copy, row, col + 1, game);
@@ -71,23 +79,18 @@ static char	**get_map_copy(t_game *game)
 	return (map_copy);
 }
 
-static bool	check_reachable(char **map_copy, t_game *game)
+static bool	check_reachable(t_game *game)
 {
-	int			i;
-	int			j;
-
-	i = 0;
-	while (i < game->map.row)
+	if (game->valid.coins < game->player.max_coins)
 	{
-		j = 0;
-		while (j < game->map.col)
-		{
-			if ((map_copy[i][j] == 'C' || map_copy[i][j] == 'E')
-				&& map_copy[i][j] != 'F')
-				return (false);
-			j++;
-		}
-		i++;
+		ft_printf("Failed: Coins reachable: %d, Total coins needed: %d\n",
+			game->valid.coins, game->player.max_coins);
+		return (false);
+	}
+	if (!game->valid.exit)
+	{
+		ft_printf("Failed: Exit not reachable\n");
+		return (false);
 	}
 	return (true);
 }
@@ -99,12 +102,14 @@ bool	is_path_valid(t_game *game)
 	int			col;
 	bool		is_valid;
 
+	game->valid.coins = 0;
+	game->valid.exit = 0;
 	map_copy = get_map_copy(game);
 	if (!map_copy)
 		error("Error: Memory allocation failed\n");
 	find_player(game, &row, &col);
 	flood_fill(map_copy, row, col, game);
-	is_valid = check_reachable(map_copy, game);
+	is_valid = check_reachable(game);
 	free_map_copy(map_copy, game);
 	if (!is_valid)
 		error("Error: Not all elements are reachable\n");

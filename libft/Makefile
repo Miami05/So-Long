@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ledio <ledio@student.42.fr>                +#+  +:+       +#+         #
+#    By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:20:49 by ldurmish          #+#    #+#              #
-#    Updated: 2024/12/18 19:24:56 by ledio            ###   ########.fr        #
+#    Updated: 2025/01/13 19:59:13 by ldurmish         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = libft.a
 PRINTF_NAME = libftprintf.a
 
-# Compiler settins
+# Compiler settings
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I include/ -I ft_printf/include/ -I gnl/include/
 
@@ -45,7 +45,7 @@ BONUS_SRCS = $(BONUS_DIR)ft_lstnew_bonus.c $(BONUS_DIR)ft_lstadd_front_bonus.c $
              $(BONUS_DIR)ft_lstclear_bonus.c $(BONUS_DIR)ft_lstiter_bonus.c $(BONUS_DIR)ft_lstmap_bonus.c \
 			 $(GNL_BONUS_DIR)get_next_line_bonus.c $(GNL_BONUS_DIR)get_next_line_utils_bonus.c \
 
-# Ft_prinf files
+# Ft_printf files
 PRINTF_SRCS = $(PRINTF_DIR)check_error.c $(PRINTF_DIR)ft_handle_char.c $(PRINTF_DIR)ft_handle_hex.c \
 				$(PRINTF_DIR)ft_handle_percentage.c $(PRINTF_DIR)ft_handle_ptr.c $(PRINTF_DIR)ft_handle_string.c \
 				$(PRINTF_DIR)ft_handling_padding.c $(PRINTF_DIR)ft_init_print.c $(PRINTF_DIR)ft_print_width.c \

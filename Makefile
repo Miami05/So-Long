@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ledio <ledio@student.42.fr>                +#+  +:+       +#+         #
+#    By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 18:25:22 by ledio             #+#    #+#              #
-#    Updated: 2024/12/23 23:47:04 by ledio            ###   ########.fr        #
+#    Updated: 2025/01/19 19:59:57 by ldurmish         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name
 NAME = so_long
+BONUS_NAME = so_long_bonus
 
 # Compiler setting
 CC = cc
@@ -21,20 +22,32 @@ INCLUDE = -I include -I libft/include -I/libft/ft_printf/include -I/usr/include
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 FT_PRINTF = $(LIBFT_DIR)/libftprintf.a
+BONUS = bonus/
+SRC = src/
 
 # Color codes
 RESET = \033[0m
 GREEN = \033[0;32m
 RED = \033[0;31m
 
-# Soure files for so_long
+# Source files for so_long
 SRCS = animate_player.c errors.c game_utils.c \
 		main_utils_3.c main_utils_2.c main_utils.c \
 		map_utils.c so_long.c texture_utils.c texture_utils_2.c \
-		animate_bomb.c render_textures.c \
+		animate_bomb.c render_textures.c explosion_bomb.c \
+		errors_2.c utils.c\
+
+BONUS_SRCS = $(BONUS)animate_enemy_bonus.c $(BONUS)utils_bonus.c $(BONUS)so_long_bonus.c \
+				$(BONUS)texture_utils_bonus.c $(BONUS)utils_3_bonus.c $(BONUS)main_utils_bonus.c \
+				$(BONUS)render_texture_bonus.c $(BONUS)animate_player_bonus.c $(BONUS)errors_bonus.c \
+				$(BONUS)game_utils_bonus.c $(BONUS)main_utils_1_bonus.c $(BONUS)main_utils_2_bonus.c \
+				$(BONUS)map_utils_bonus.c $(BONUS)texture_utils_2_bonus.c $(BONUS)animate_bomb_bonus.c \
+				$(BONUS)explosion_bomb_bonus.c $(BONUS)errors_2_bonus.c $(BONUS)utils_2_bonus.c \
+				$(BONUS)animate_player_utils_bonus.c\
 
 # Object files
 OBJS = $(SRCS:.c=.o)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 # Main target
 all: $(LIBFT) $(NAME) $(FT_PRINTF)
@@ -48,24 +61,30 @@ $(LIBFT):
 # Compile so_long
 $(NAME):$(OBJS)
 		@echo "$(GREEN)Compiling so_long...$(RESET)"
-		$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) $(MLX_FLAGS) -L$(LIBFT_DIR) -lftprintf -lft -o $(NAME)
+		$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -L$(LIBFT_DIR) -lftprintf -lft $(MLX_FLAGS) -o $(NAME)
 		@echo "$(GREEN)so_long compiled successfully!$(RESET)"
 
 # Compile source files to object files
 %.o:%.c
 		$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
+# Bonus target
+bonus: $(LIBFT) $(BONUS_OBJS)
+		@echo "$(GREEN)Compiling so_long bonus...$(RESET)"
+		$(CC) $(CFLAGS) $(INCLUDE) $(BONUS_OBJS) -L$(LIBFT_DIR) -lftprintf -lft $(MLX_FLAGS) -o $(BONUS_NAME)
+		@echo "$(GREEN)so_long bonus compiled successfully!$(RESET)"
+
 # Clean object files and executables
 clean:
 		@echo "$(RED)Cleaning object files...$(RESET)"
-		@rm -f $(OBJS)
+		@rm -f $(OBJS) $(BONUS_OBJS)
 		@$(MAKE) -C $(LIBFT_DIR) clean
 		@echo "$(GREEN)Object files cleaned successfully!$(RESET)";
 
 # Removing all (including executables)
 fclean: clean
 		@echo "$(RED)Cleaning executables...$(RESET)"
-		@rm -f $(NAME)
+		@rm -f $(NAME) $(BONUS_NAME)
 		@$(MAKE) -C $(LIBFT_DIR) fclean
 		@echo "$(GREEN)Executables cleaned successfully!$(RESET)"
 
@@ -73,4 +92,4 @@ fclean: clean
 re: fclean all
 
 # Phony targets
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
