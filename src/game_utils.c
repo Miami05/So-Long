@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 18:24:03 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/17 21:08:15 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:07:55 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	key_press(int keycode, t_game *game)
 		game->player.is_moving = true;
 		key_movement = true;
 	}
-	else if (keycode == KEY_SPACE)
-		place_bomb(game);
 	else if (keycode == KEY_ESC)
 		exit_game(game);
 	if (key_movement)

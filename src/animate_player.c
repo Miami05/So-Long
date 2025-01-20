@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:37:38 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/18 13:41:39 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:10:52 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ bool	is_valid_move(t_game *game, int grid_x, int grid_y)
 		|| grid_y >= game->map.row)
 		return (false);
 	if (game->map.map[grid_y][grid_x] == '1')
-		return (false);
-	if (game->map.map[grid_y][grid_x] == 'B'
-		|| game->map.map[grid_y][grid_x] == '3')
 		return (false);
 	if (game->map.map[grid_y][grid_x] == 'E'
 			&& game->map.collectible > 0)

@@ -6,34 +6,35 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:46:47 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/18 14:56:36 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:11:55 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	load_bomb(t_game *game)
+void	load_collectible(t_game *game)
 {
-	const char	*explosion_path[4] = {
-		"textures/bombs/bomb_1.xpm",
-		"textures/bombs/bomb_2.xpm",
-		"textures/bombs/bomb_3.xpm",
-		"textures/bombs/bomb_4.xpm"
+	const char		*coins_path[9] = {
+		"textures/coins/coins.xpm",
+		"textures/coins/coins_1.xpm",
+		"textures/coins/coins_2.xpm",
+		"textures/coins/coins_3.xpm",
+		"textures/coins/coins_4.xpm",
+		"textures/coins/coins_5.xpm",
+		"textures/coins/coins_6.xpm",
+		"textures/coins/coins_7.xpm",
+		"textures/coins/coins_8.xpm"
 	};
-	int			i;
+	int				i;
 
 	i = -1;
-	game->bomb.sprites = mlx_xpm_file_to_image(game->mlx,
-			"textures/bombs/bomb.xpm", &game->bomb.width, &game->bomb.height);
-	if (!game->bomb.sprites)
-		error("Error: Failed to load the bomb sprite");
-	while (++i < 4)
+	while (++i < 9)
 	{
-		game->bomb.explosion_sprites[i] = mlx_xpm_file_to_image(game->mlx,
-				(char *)explosion_path[i], &game->bomb.width,
-				&game->bomb.height);
-		if (!game->bomb.explosion_sprites[i])
-			error("Error: Failed to load the explosion sprites");
+		game->coins.sprites[i] = mlx_xpm_file_to_image(game->mlx,
+				(char *)coins_path[i], &game->coins.width,
+				&game->coins.height);
+		if (!game->coins.sprites[i])
+			error("Error: Failed to load the coins sprites");
 	}
 }
 
@@ -85,6 +86,5 @@ void	load_texture(t_game *game)
 		error("Error: Failed to load the pictures");
 	load_exit_door(game);
 	load_player(game);
-	load_bomb(game);
-	load_sprites(game);
+	load_collectible(game);
 }

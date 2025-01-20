@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 23:46:20 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/18 13:45:59 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:12:53 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static void	flood_fill(char **map_copy, int row, int col, t_game *game)
 		|| map_copy[row][col] == '1' || map_copy[row][col] == 'F')
 		return ;
 	map_copy[row][col] = 'F';
-	if (game->map.map[row][col] == 'C'
-		|| game->map.map[row][col] == '3')
+	if (game->map.map[row][col] == 'C')
 		game->valid.coins++;
 	if (game->map.map[row][col] == 'E')
 	{

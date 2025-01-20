@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:20:01 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/18 23:31:15 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:07:13 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_effects
 	int		text_offset;
 	int		right_edge;
 }	t_effect;
-
 
 typedef struct s_valid
 {
@@ -187,15 +186,9 @@ int			render_map(t_game *game);
 void		load_sprites(t_game *game);
 void		place_bomb(t_game *game);
 void		animate_coin(t_game *game);
-void		render_explosion(t_game *game);
-void		update_bomb_state(t_game *game);
-void		init_bomb(t_game *game);
 void		reset_player(t_game *game);
 int			game_loop(t_game *game);
-void		render_bomb(t_game *game);
 void		cleanup_player_sprites(t_game *game);
-void		clear_explosion_area(t_game *game);
-void		free_bomb(t_game *game);
 void		free_box(t_game *game);
 void		free_textures(t_game *game);
 void		free_collectible_coins(t_game *game);
@@ -203,6 +196,7 @@ void		free_bomb(t_game *game);
 void		free_map(t_game *game);
 bool		is_map_valid_size(t_game *game);
 bool		valid_map_character(t_game *game);
-void        load_player_utils(t_game *game, const char *sprites_path[4][3]);
+void		load_player_utils(t_game *game,
+				const char *sprites_path[4][3]);
 
 #endif

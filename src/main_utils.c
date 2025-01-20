@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 18:23:57 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/17 21:21:16 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:12:36 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ bool	has_valid_characters(t_game *game)
 		{
 			if (game->map.map[i][j] != '1' && game->map.map[i][j] != '0'
 				&& game->map.map[i][j] != 'C' && game->map.map[i][j] != 'P'
-				&& game->map.map[i][j] != 'E' && game->map.map[i][j] != 'B'
-				&& game->map.map[i][j] != '3' && game->map.map[i][j] != 'X')
+				&& game->map.map[i][j] != 'E')
 				return (false);
 			j++;
 		}
@@ -98,15 +97,13 @@ void	init_vars(t_game *game)
 	int			i;
 	int			j;
 
-	init_bomb(game);
 	i = -1;
 	while (++i < game->map.row)
 	{
 		j = -1;
 		while (++j < game->map.col)
 		{
-			if (game->map.map[i][j] == 'C'
-			|| game->map.map[i][j] == '3')
+			if (game->map.map[i][j] == 'C')
 				game->player.max_coins++;
 		}
 	}

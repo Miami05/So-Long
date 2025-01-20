@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 01:06:52 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/18 13:44:01 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:09:06 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	exit_game(t_game *game)
 {
 	cleanup_player_sprites(game);
 	free_map(game);
-	free_bomb(game);
-	free_box(game);
 	free_textures(game);
 	free_collectible_coins(game);
 	if (game->win)

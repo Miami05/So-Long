@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:11:47 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/17 21:08:14 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:05:45 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ int	game_loop(t_game *game)
 
 	if (!game || !game->mlx || !game->win)
 		return (0);
-	if (game->bomb.active)
-	{
-		update_bomb_state(game);
-		if (!game->bomb.is_exploding && frame_count % 5 == 0)
-		{
-			game->bomb.current_frame = (game->bomb.current_frame + 1) % 4;
-			render_bomb(game);
-		}
-	}
 	render_map(game);
 	frame_count = (frame_count + 1) % 1000;
 	return (0);

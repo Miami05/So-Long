@@ -6,27 +6,39 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 00:51:08 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/18 13:46:16 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:15:42 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	render_map_utils(t_game *game)
+bool	is_valid_character(char c)
+{
+	return (c == '1' || c == 'E'
+		|| c == 'C' || c == '0' || c == 'P');
+}
+
+bool	valid_map_character(t_game *game)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	j = 0;
-	i = game->player.prev_y / TILE_SIZE;
-	j = game->player.prev_x / TILE_SIZE;
-	if (game->map.map[i][j] != '1')
-		mlx_put_image_to_window(game->mlx, game->win, game->texture.bg,
-			game->player.prev_x, game->player.prev_y);
-	else
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->texture.wall, game->player.prev_x, game->player.prev_y);
+	while (i < game->map.row)
+	{
+		j = 0;
+		while (j < game->map.col)
+		{
+			if (!is_valid_character(game->map.map[i][j]))
+			{
+				ft_printf("Error: Invalid character\n");
+				return (false);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (true);
 }
 
 static void	render_map_texture(t_game *game, int j)
@@ -36,10 +48,6 @@ static void	render_map_texture(t_game *game, int j)
 	if (game->map.map[game->i][j] == '1')
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->texture.wall, j * TILE_SIZE, game->i * TILE_SIZE);
-	else if (game->map.map[game->i][j] == 'B'
-		|| game->map.map[game->i][j] == '3')
-		mlx_put_image_to_window(game->mlx, game->win,
-			game->box.sprites, j * TILE_SIZE, game->i * TILE_SIZE);
 	else if (game->map.map[game->i][j] == 'E')
 	{
 		if (game->player.collected_coins >= game->player.coins_needed)
@@ -47,33 +55,6 @@ static void	render_map_texture(t_game *game, int j)
 				game->texture.exit_door, j * TILE_SIZE, game->i * TILE_SIZE);
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->texture.door, j * TILE_SIZE, game->i * TILE_SIZE);
-	}
-}
-
-void	render_bomb(t_game *game)
-{
-	int		bomb_grid_x;
-	int		bomb_grid_y;
-
-	if (game->player.prev_x != game->player.x
-		|| game->player.prev_y != game->player.y)
-	{
-		render_map_utils(game);
-	}
-	if (game->bomb.active)
-	{
-		bomb_grid_x = game->bomb.x / TILE_SIZE;
-		bomb_grid_y = game->bomb.y / TILE_SIZE;
-		if (game->map.map[bomb_grid_y][bomb_grid_x] == BOMB_ACTIVE)
-		{
-			if (!game->bomb.is_exploding)
-			{
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->texture.bg, game->bomb.x, game->bomb.y);
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->bomb.sprites, game->bomb.x, game->bomb.y);
-			}
-		}
 	}
 }
 
@@ -93,8 +74,6 @@ int	render_map(t_game *game)
 		}
 		first_render = false;
 	}
-	else
-		render_bomb(game);
 	animate_coin(game);
 	animate_player(game);
 	return (0);
