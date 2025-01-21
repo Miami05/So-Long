@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:20:01 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 13:07:13 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:17:02 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,8 @@ bool		is_map_valid_size(t_game *game);
 bool		valid_map_character(t_game *game);
 void		load_player_utils(t_game *game,
 				const char *sprites_path[4][3]);
-
+int			get_col(char *filename);
+bool		has_valid_characters(t_game *game);
+bool		is_enclosed_by_walls(t_game *game);
+bool		is_rectangular(t_game *game);
 #endif

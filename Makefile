@@ -6,7 +6,7 @@
 #    By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 18:25:22 by ledio             #+#    #+#              #
-#    Updated: 2025/01/20 13:13:46 by ldurmish         ###   ########.fr        #
+#    Updated: 2025/01/20 14:47:16 by ldurmish         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,16 +33,18 @@ RED = \033[0;31m
 # Source files for so_long
 SRCS = $(SRC)animate_player.c $(SRC)errors.c $(SRC)game_utils.c \
 		$(SRC)main_utils_3.c $(SRC)main_utils_2.c $(SRC)main_utils.c \
-		$(SRC)map_utils.c $(SRC)so_long.c $(SRC)texture_utils.c $(SRC)texture_utils_2.c \
-		$(SRC)render_textures.c $(SRC)errors_2.c $(SRC)utils.c\
+		$(SRC)map_utils.c $(SRC)so_long.c $(SRC)texture_utils.c \
+		$(SRC)render_textures.c $(SRC)errors_2.c $(SRC)utils.c \
+		$(SRC)main_utils_1.c\
 
+# Source file for so_long bonus
 BONUS_SRCS = $(BONUS)animate_enemy_bonus.c $(BONUS)utils_bonus.c $(BONUS)so_long_bonus.c \
 				$(BONUS)texture_utils_bonus.c $(BONUS)utils_3_bonus.c $(BONUS)main_utils_bonus.c \
 				$(BONUS)render_texture_bonus.c $(BONUS)animate_player_bonus.c $(BONUS)errors_bonus.c \
 				$(BONUS)game_utils_bonus.c $(BONUS)main_utils_1_bonus.c $(BONUS)main_utils_2_bonus.c \
 				$(BONUS)map_utils_bonus.c $(BONUS)texture_utils_2_bonus.c $(BONUS)animate_bomb_bonus.c \
 				$(BONUS)explosion_bomb_bonus.c $(BONUS)errors_2_bonus.c $(BONUS)utils_2_bonus.c \
-				$(BONUS)animate_player_utils_bonus.c $(BONUS) utils_1_bonus.c\
+				$(BONUS)animate_player_utils_bonus.c $(BONUS)utils_1_bonus.c\
 
 # Object files
 OBJS = $(SRCS:.c=.o)

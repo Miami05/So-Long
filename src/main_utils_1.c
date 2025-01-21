@@ -1,16 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_utils_2_bonus.c                            :+:      :+:    :+:   */
+/*   main_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 20:53:27 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/20 15:23:13 by ldurmish         ###   ########.fr       */
+/*   Created: 2025/01/20 14:45:43 by ldurmish          #+#    #+#             */
+/*   Updated: 2025/01/20 15:13:32 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
+
+void	has_required_elemets_utils(t_game *game)
+{
+	if (game->map.player != 1)
+	{
+		ft_printf("Error: The map should must have one character\n");
+		exit_game(game);
+	}
+	if (game->map.collectible == 0)
+	{
+		ft_printf("Error: The map should contain at least one collectible\n");
+		exit_game(game);
+	}
+	if (game->map.exit != 1)
+	{
+		ft_printf("Error: The map must have one exit\n");
+		exit_game(game);
+	}
+}
+
+bool	has_required_elements(t_game *game)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < game->map.row)
+	{
+		j = -1;
+		while (++j < game->map.col)
+		{
+			if (game->map.map[i][j] == 'P')
+				game->map.player++;
+			else if (game->map.map[i][j] == 'C')
+				game->map.collectible++;
+			else if (game->map.map[i][j] == 'E')
+				game->map.exit++;
+		}
+	}
+	has_required_elemets_utils(game);
+	return (true);
+}
 
 void	validate_maps_utils(t_game *game)
 {
@@ -50,45 +92,4 @@ bool	validate_map(t_game *game)
 	}
 	validate_maps_utils(game);
 	return (true);
-}
-
-void	load_collectible(t_game *game)
-{
-	const char		*coins_path[9] = {
-		"textures/coins/coins.xpm",
-		"textures/coins/coins_1.xpm",
-		"textures/coins/coins_2.xpm",
-		"textures/coins/coins_3.xpm",
-		"textures/coins/coins_4.xpm",
-		"textures/coins/coins_5.xpm",
-		"textures/coins/coins_6.xpm",
-		"textures/coins/coins_7.xpm",
-		"textures/coins/coins_8.xpm"
-	};
-	int				i;
-
-	i = -1;
-	while (++i < 9)
-	{
-		game->coins.sprites[i] = mlx_xpm_file_to_image(game->mlx,
-				(char *)coins_path[i], &game->coins.width,
-				&game->coins.height);
-		if (!game->coins.sprites[i])
-			error("Error: Failed to load the coins sprites");
-	}
-}
-
-void	load_box(t_game *game)
-{
-	game->box.sprites = mlx_xpm_file_to_image(game->mlx,
-			"textures/box/box.xpm", &game->box.width,
-			&game->box.height);
-	if (!game->box.sprites)
-		error("Error: Failed loading box sprites");
-}
-
-void	load_sprites(t_game *game)
-{
-	load_box(game);
-	load_collectible(game);
 }

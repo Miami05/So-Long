@@ -6,17 +6,37 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 12:58:42 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/20 12:59:25 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:18:57 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+int	get_col(char *filename)
+{
+	int		col;
+	char	c;
+	int		fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		error("Error: Failed to open the file");
+	col = 0;
+	while (read(fd, &c, 1) > 0)
+	{
+		if (c == '\n')
+			break ;
+		col++;
+	}
+	close(fd);
+	return (col);
+}
+
 void	render_shadow(t_game *game, int x, int y, char *text)
 {
 	float		offset;
 
-	offset = 1.2;
+	offset = 1.5;
 	mlx_string_put(game->mlx, game->win, x - offset, y - offset,
 		0x000000, text);
 	mlx_string_put(game->mlx, game->win, x + offset, y - offset,

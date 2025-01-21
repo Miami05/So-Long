@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:31:40 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/16 13:52:42 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:23:08 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,6 @@ bool	is_rectangular(t_game *game)
 			return (false);
 		i++;
 	}
-	return (true);
-}
-
-bool	validate_map(t_game *game)
-{
-	if (!is_rectangular(game))
-		error("Error: The map should be rectangular\n");
-	if (!is_enclosed_by_walls(game))
-		error("Error: The map should be enclosed by walls\n");
-	if (!has_valid_characters(game))
-		error("Error: Invalid characters found in the map\n");
-	if (!has_required_elements(game))
-		error("Error: Invalid number of players, exit or collectibles\n");
-	if (!valid_map_character(game))
-		error("Error: There are invalid characters\n");
-	if (!is_path_valid(game))
-		error("Error: There is no valid path in the map\n");
 	return (true);
 }
 

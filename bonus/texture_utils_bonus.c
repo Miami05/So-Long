@@ -6,11 +6,19 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:33:35 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/18 14:56:49 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:21:49 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	init_bomb(t_game *game)
+{
+	game->player.bomb_power = 2;
+	game->bomb.explosion_duration = 20;
+	game->bomb.explosion_radius = game->player.bomb_power;
+	game->bomb.is_exploding = false;
+}
 
 void	load_bomb(t_game *game)
 {

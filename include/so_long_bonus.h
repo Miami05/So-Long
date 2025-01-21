@@ -6,14 +6,17 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:27:40 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/20 13:03:56 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:20:36 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_BONUS_H
 # define SO_LONG_BONUS_H
 
-# include "so_long.h"
+# include "../minilibx-linux/mlx.h"
+# include "../libft/include/libft.h"
+# include <math.h>
+# include <stdbool.h>
 
 # define TILE_SIZE 32
 # define KEY_ESC 65307
@@ -78,6 +81,7 @@ typedef struct s_map
 	int		collectible;
 	int		player;
 	int		exit;
+	int		enemy;
 }			t_map;
 
 typedef struct s_texture
@@ -215,5 +219,9 @@ bool		valid_map_character(t_game *game);
 void		render_game_stats(t_game *game);
 void		load_player_utils(t_game *game,
 				const char *sprites_path[4][3]);
+int			get_col(char *filename);
+bool		has_valid_characters(t_game *game);
+bool		is_enclosed_by_walls(t_game *game);
+bool		is_rectangular(t_game *game);
 
 #endif

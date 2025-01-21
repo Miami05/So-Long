@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 00:51:08 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 13:15:42 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:46:48 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,32 +77,4 @@ int	render_map(t_game *game)
 	animate_coin(game);
 	animate_player(game);
 	return (0);
-}
-
-bool	has_required_elements(t_game *game)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < game->map.row)
-	{
-		j = -1;
-		while (++j < game->map.col)
-		{
-			if (game->map.map[i][j] == 'P')
-				game->map.player++;
-			else if (game->map.map[i][j] == 'C')
-				game->map.collectible++;
-			else if (game->map.map[i][j] == 'E')
-				game->map.exit++;
-		}
-	}
-	if (game->map.player != 1)
-		error("Error: The map should must have one character");
-	if (game->map.collectible == 0)
-		error("Error: The map should contain at least one collectible");
-	if (game->map.exit != 1)
-		error("Error: The map must have one exit");
-	return (true);
 }

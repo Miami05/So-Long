@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:53:48 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/18 13:47:21 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:18:40 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,12 @@ static void	cleanup_gnl(int fd)
 	}
 }
 
-int	get_rows(char *filename)
+int	get_rows_utils(int read_bytes, int fd, char c, int row)
 {
-	char		c;
-	int			row;
-	int			fd;
-	int			has_char;
+	int		has_char;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		error("Error: Failed to open the file");
-	row = 0;
-	while (read(fd, &c, 1) > 0)
+	has_char = 0;
+	while (read_bytes > 0)
 	{
 		if (c == '\n')
 		{
@@ -44,33 +38,34 @@ int	get_rows(char *filename)
 		}
 		else
 			has_char = 1;
+		read_bytes = read(fd, &c, 1);
 	}
 	if (has_char)
 		row++;
-	close(fd);
-	if (row == 0)
-		error("Error: File is empty or improperly formatted");
 	return (row);
 }
 
-int	get_col(char *filename)
+int	get_rows(char *filename, t_game *game)
 {
-	int		col;
-	char	c;
-	int		fd;
+	char		c;
+	int			row;
+	int			fd;
+	int			read_bytes;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		error("Error: Failed to open the file");
-	col = 0;
-	while (read(fd, &c, 1) > 0)
+	row = 0;
+	read_bytes = read(fd, &c, 1);
+	if (read_bytes <= 0)
 	{
-		if (c == '\n')
-			break ;
-		col++;
+		close(fd);
+		ft_printf("Error: File is empty\n");
+		exit_game(game);
 	}
+	row = get_rows_utils(read_bytes, fd, c, row);
 	close(fd);
-	return (col);
+	return (row);
 }
 
 void	load_map_utils(t_game *game, char *line, int fd)
@@ -101,7 +96,7 @@ void	load_map(char *filename, t_game *game)
 	char		*line;
 
 	line = NULL;
-	game->map.row = get_rows(filename);
+	game->map.row = get_rows(filename, game);
 	game->map.col = get_col(filename);
 	game->map.map = malloc(sizeof(char *) * (game->map.row + 1));
 	if (!game->map.map)
