@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:57:19 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/19 19:57:48 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:38:49 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ bool	is_path_valid(t_game *game)
 	is_valid = check_reachable(game);
 	free_map_copy(map_copy, game);
 	if (!is_valid)
-		error("Error: Not all elements are reachable\n");
+	{
+		ft_printf("Error: Not all elements are reachable\n");
+		exit_game(game);
+	}
 	return (true);
 }

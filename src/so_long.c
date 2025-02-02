@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:11:47 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 13:05:45 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:47:21 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,16 @@ void	initialize_game(t_game *game)
 	game->player.is_moving = false;
 	game->player.current_frame = 1;
 	game->player.explosion_power = 1;
-	game->coins.anim_speed = 300;
+	game->coins.anim_speed = 240;
 	game->player.coins_needed = 3;
+}
+
+void	init_map_utils(t_game *game)
+{
+	init_vars(game);
+	validate_map(game);
+	init_player(game);
+	load_texture(game);
 }
 
 int	main(int argc, char *argv[])
@@ -41,24 +49,24 @@ int	main(int argc, char *argv[])
 	t_game		game;
 
 	if (argc != 2)
-		error("Usage: ./so_long <maps/map.ber>");
+		error("Usage: ./so_long <maps/map.ber>", &game);
 	initialize_game(&game);
 	game.mlx = mlx_init();
 	if (!game.mlx)
-		error("Error: MLX initialization failed");
+		error("Error: MLX initialization failed", &game);
 	load_map(argv[1], &game);
 	if (!is_map_valid_size(&game))
-		error("Error: Map size exceeds resolution\n");
-	init_vars(&game);
-	validate_map(&game);
-	init_player(&game);
-	load_texture(&game);
+	{
+		ft_printf("Error: Map size exceeds resolution\n");
+		exit_game(&game);
+	}
+	init_map_utils(&game);
 	game.win = mlx_new_window(game.mlx, game.map.col * TILE_SIZE,
 			game.map.row * TILE_SIZE, "so_long");
 	if (!game.win)
 	{
+		ft_printf("Error: Loading the map");
 		exit_game(&game);
-		error("Error: Loading the map");
 	}
 	setup_game_tools(&game);
 	if (mlx_loop(game.mlx) == KEY_ESC)

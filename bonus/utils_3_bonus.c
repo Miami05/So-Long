@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:23:36 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/18 13:56:18 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:56:04 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_explosion_utils(t_game *game, int grid_x, int grid_y)
 	if (grid_x == game->player.x / TILE_SIZE
 		&& grid_y == game->player.y / TILE_SIZE)
 	{
-		error("You lost\n");
+		ft_printf("You lost\n");
 		exit_game(game);
 	}
 	if (game->map.map[grid_y][grid_x] == 'B')

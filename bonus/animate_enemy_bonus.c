@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:35:35 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/19 19:02:25 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:39:05 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	update_enemy_position(t_game *game)
 	if (game->enemy.x == game->player.x / TILE_SIZE
 		&& game->enemy.y == game->player.y / TILE_SIZE)
 	{
-		error("Game Over! Caught by enemy!\n");
+		ft_printf("Game Over! Caught by enemy!\n");
 		exit_game(game);
 	}
 	if (prev_x != game->enemy.x || prev_y != game->enemy.y)

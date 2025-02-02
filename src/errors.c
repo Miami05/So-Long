@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 01:06:52 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 13:09:06 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:45:09 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	free_map_copy(char **map_copy, t_game *game)
 	free(map_copy);
 }
 
-int	error(char *message)
+void	error(char *message, t_game *game)
 {
-	perror(message);
-	exit(EXIT_FAILURE);
+	ft_printf(message);
+	exit_game(game);
 }

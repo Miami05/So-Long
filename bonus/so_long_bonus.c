@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:29:54 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/19 19:25:00 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:10:44 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,17 @@ int	main(int argc, char *argv[])
 		error("Error: MLX initialization failed");
 	load_map(argv[1], &game);
 	if (!is_map_valid_size(&game))
-		error("Error: Map size exceeds resolution\n");
+	{
+		ft_printf("Error: Map size exceeds resolution\n");
+		exit_game(&game);
+	}
 	init_map_utils(&game);
 	game.win = mlx_new_window(game.mlx, game.map.col * TILE_SIZE,
 			game.map.row * TILE_SIZE, "so_long");
 	if (!game.win)
 	{
+		ft_printf("Error: Loading the map");
 		exit_game(&game);
-		error("Error: Loading the map");
 	}
 	setup_game_tools(&game);
 	if (mlx_loop(game.mlx) == KEY_ESC)

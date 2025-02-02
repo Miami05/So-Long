@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:27:40 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/20 15:20:36 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:12:07 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # define KEY_D 100
 # define KEY_SPACE 32
 # define BOMB_ACTIVE '4'
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 
 typedef struct s_effects
 {

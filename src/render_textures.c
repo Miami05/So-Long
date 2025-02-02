@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 23:46:46 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 14:38:33 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:46:48 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_col(char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		error("Error: Failed to open the file");
+		error("Error: Failed to open the file", NULL);
 	col = 0;
 	while (read(fd, &c, 1) > 0)
 	{

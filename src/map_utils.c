@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:37:14 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 14:37:43 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:44:47 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	get_rows(char *filename, t_game *game)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		error("Error: Failed to open the file");
+		error("Error: Failed to open the file", game);
 	row = 0;
 	read_bytes = read(fd, &c, 1);
 	if (read_bytes <= 0)
@@ -76,7 +76,7 @@ void	load_map_utils(t_game *game, char *line, int fd)
 		if (!line)
 		{
 			free_map(game);
-			error("Error: Failed to load the map\n");
+			error("Error: Failed to load the map\n", game);
 		}
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
@@ -85,7 +85,7 @@ void	load_map_utils(t_game *game, char *line, int fd)
 		if (!game->map.map[game->i])
 		{
 			free_map(game);
-			error("Error: Memory allocation failed\n");
+			error("Error: Memory allocation failed\n", game);
 		}
 	}
 }
@@ -99,15 +99,15 @@ void	load_map(char *filename, t_game *game)
 	game->map.row = get_rows(filename, game);
 	game->map.col = get_col(filename);
 	if (game->map.row <= 0 || game->map.col <= 0)
-		error("Error: Invalid map dimensions");
+		error("Error: Invalid map dimensions\n", game);
 	game->map.map = malloc(sizeof(char *) * (game->map.row + 1));
 	if (!game->map.map)
-		error("Error: Memory allocation failed");
+		error("Error: Memory allocation failed", game);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
 		free(game->map.map);
-		error("Error: Opening the file");
+		error("Error: Opening the file", game);
 	}
 	game->i = -1;
 	load_map_utils(game, line, fd);

@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 23:46:20 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 13:12:53 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:45:53 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,15 @@ bool	is_path_valid(t_game *game)
 	game->valid.exit = 0;
 	map_copy = get_map_copy(game);
 	if (!map_copy)
-		error("Error: Memory allocation failed\n");
+		error("Error: Memory allocation failed\n", game);
 	find_player(game, &row, &col);
 	flood_fill(map_copy, row, col, game);
 	is_valid = check_reachable(game);
 	free_map_copy(map_copy, game);
 	if (!is_valid)
-		error("Error: Not all elements are reachable\n");
+	{
+		ft_printf("Error: Not all elements are reachable\n");
+		exit_game(game);
+	}
 	return (true);
 }

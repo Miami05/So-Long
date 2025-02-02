@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 13:20:01 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 15:17:02 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/02 17:42:47 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # define KEY_D 100
 # define KEY_SPACE 32
 # define BOMB_ACTIVE '4'
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 
 typedef struct s_effects
 {
@@ -167,7 +171,7 @@ typedef struct s_game
 }	t_game;
 
 void		load_map(char *filename, t_game *game);
-int			error(char *message);
+void		error(char *message, t_game *game);
 void		load_texture(t_game *game);
 void		init_vars(t_game *game);
 bool		has_required_elements(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:10:05 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/18 13:42:29 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:50:29 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,13 @@ void	free_map(t_game *game)
 	if (game->map.map)
 	{
 		i = 0;
+		while (i < game->map.row)
 		{
-			free(game->map.map[i]);
+			if (game->map.map[i])
+			{
+				free(game->map.map[i]);
+				game->map.map[i] = NULL;
+			}
 			i++;
 		}
 		free(game->map.map);

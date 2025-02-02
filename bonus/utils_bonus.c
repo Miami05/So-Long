@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:11:50 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/18 13:35:53 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:06:04 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,16 @@ void	load_enemy(t_game *game)
 	};
 
 	load_enemy_utils(game, enemy);
+}
+
+int	key_release(int keycode, t_game *game)
+{
+	if (keycode == KEY_A || keycode == KEY_D || keycode == KEY_S
+		|| keycode == KEY_W || keycode == KEY_UP || keycode == KEY_DOWN
+		|| keycode == KEY_RIGHT || keycode == KEY_LEFT)
+	{
+		game->player.is_moving = false;
+		game->player.current_frame = 1;
+	}
+	return (0);
 }
