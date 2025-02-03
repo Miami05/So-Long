@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:01:04 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/31 16:56:24 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:59:00 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	load_player_sprite(t_game *game, const char *sprites_path[4][3],
 		if (!game->player.sprites[i])
 		{
 			cleanup_player_sprites(game);
-			error("Failed to allocate memory for player sprite frames");
+			error("Failed to allocate memory for player sprite frames", game);
 		}
 		j = -1;
 		while (++j < 3)
@@ -35,7 +35,7 @@ static void	load_player_sprite(t_game *game, const char *sprites_path[4][3],
 			if (!game->player.sprites[i][j])
 			{
 				cleanup_player_sprites(game);
-				error("Failed to load player sprite");
+				error("Failed to load player sprite", game);
 			}
 		}
 	}
@@ -52,7 +52,7 @@ void	load_player_utils(t_game *game, const char *sprites_path[4][3])
 		return ;
 	game->player.sprites = calloc(4, sizeof(void **));
 	if (!game->player.sprites)
-		error("Failed to allocate memory for player sprites");
+		error("Failed to allocate memory for player sprites", game);
 	load_player_sprite(game, sprites_path, width, height);
 }
 

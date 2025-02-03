@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 14:46:47 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 13:11:55 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:58:29 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	load_collectible(t_game *game)
 				(char *)coins_path[i], &game->coins.width,
 				&game->coins.height);
 		if (!game->coins.sprites[i])
-			error("Error: Failed to load the coins sprites");
+			error("Error: Failed to load the coins sprites", game);
 	}
 }
 
@@ -73,7 +73,7 @@ void	load_exit_door(t_game *game)
 	game->texture.exit_door = mlx_xpm_file_to_image(game->mlx,
 			"textures/exit/exit.xpm", &game->width, &game->height);
 	if (!game->texture.door || !game->texture.exit_door)
-		error("Error: Failed to load the door texture\n");
+		error("Error: Failed to load the door texture\n", game);
 }
 
 void	load_texture(t_game *game)
@@ -83,7 +83,7 @@ void	load_texture(t_game *game)
 	game->texture.bg = mlx_xpm_file_to_image(game->mlx,
 			"textures/background/background.xpm", &game->width, &game->height);
 	if (!game->texture.wall || !game->texture.bg)
-		error("Error: Failed to load the pictures");
+		error("Error: Failed to load the pictures", game);
 	load_exit_door(game);
 	load_player(game);
 	load_collectible(game);
