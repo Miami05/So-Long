@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:11:47 by ledio             #+#    #+#             */
-/*   Updated: 2025/02/02 17:47:21 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:57:54 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char *argv[])
 	t_game		game;
 
 	if (argc != 2)
-		error("Usage: ./so_long <maps/map.ber>", &game);
+		return(ft_printf("Usage: ./so_long <maps/map.ber>"));
 	initialize_game(&game);
 	game.mlx = mlx_init();
 	if (!game.mlx)

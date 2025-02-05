@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 18:23:57 by ledio             #+#    #+#             */
-/*   Updated: 2025/01/20 15:11:38 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:58:08 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	init_vars(t_game *game)
 	while (++i < game->map.row)
 	{
 		j = -1;
-		while (++j < game->map.col)
+		while (++j < ft_strlen(game->map.map[i]))
 		{
 			if (game->map.map[i][j] == 'C')
 				game->player.max_coins++;
