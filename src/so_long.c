@@ -6,11 +6,23 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:11:47 by ledio             #+#    #+#             */
-/*   Updated: 2025/02/05 21:57:54 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/05 22:07:27 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static bool	is_ber_file(const char *filename)
+{
+	int		len;
+
+	if (!filename)
+		return (false);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (false);
+	return (ft_strncmp(filename + len - 4, ".ber", 4) == 0);
+}
 
 int	game_loop(t_game *game)
 {
@@ -50,6 +62,8 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		return(ft_printf("Usage: ./so_long <maps/map.ber>"));
+	if (!is_ber_file(argv[1]))
+		return (ft_printf("Error: The file must have .ber extensions\n"));
 	initialize_game(&game);
 	game.mlx = mlx_init();
 	if (!game.mlx)
