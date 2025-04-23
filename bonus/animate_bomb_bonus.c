@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:13:02 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/31 18:07:49 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:36:49 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	place_bomb_utils(t_game *game, int grid_x, int grid_y)
 		game->bomb.x = grid_x * TILE_SIZE;
 		game->bomb.y = grid_y * TILE_SIZE;
 		game->bomb.active = 1;
-		game->bomb.timer = 1500;
+		game->bomb.timer = 500;
 		game->bomb.current_frame = 0;
 		game->bomb.is_exploding = false;
 		game->map.map[grid_y][grid_x] = BOMB_ACTIVE;

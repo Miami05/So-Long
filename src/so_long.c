@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:11:47 by ledio             #+#    #+#             */
-/*   Updated: 2025/02/05 22:07:27 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/04/23 23:31:53 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char *argv[])
 	t_game		game;
 
 	if (argc != 2)
-		return(ft_printf("Usage: ./so_long <maps/map.ber>"));
+		return (ft_printf("Usage: ./so_long <maps/map.ber>\n"));
 	if (!is_ber_file(argv[1]))
 		return (ft_printf("Error: The file must have .ber extensions\n"));
 	initialize_game(&game);
@@ -71,12 +71,12 @@ int	main(int argc, char *argv[])
 	load_map(argv[1], &game);
 	if (!is_map_valid_size(&game))
 	{
-		ft_printf("Error: Map size exceeds resolution\n");
+		ft_printf("Error: Map size exceeds resolution\n"),
 		exit_game(&game);
 	}
 	init_map_utils(&game);
-	game.win = mlx_new_window(game.mlx, game.map.col * TILE_SIZE,
-			game.map.row * TILE_SIZE, "so_long");
+	game.win = mlx_new_window(game.mlx, game.map.col
+			* TILE_SIZE, game.map.row * TILE_SIZE, "so_long");
 	if (!game.win)
 	{
 		ft_printf("Error: Loading the map");

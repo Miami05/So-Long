@@ -6,7 +6,7 @@
 /*   By: ldurmish <ldurmish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:29:54 by ldurmish          #+#    #+#             */
-/*   Updated: 2025/01/30 15:10:44 by ldurmish         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:32:27 by ldurmish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	initialize_game(t_game *game)
 	game->player.is_moving = false;
 	game->player.current_frame = 1;
 	game->player.explosion_power = 1;
-	game->coins.anim_speed = 300;
+	game->coins.anim_speed = 100;
 	game->player.coins_needed = 3;
 }
 
